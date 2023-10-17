@@ -1,4 +1,4 @@
-"use client"
+
 import styles from './listUser.module.css';
 import React from 'react';
 import BackButton from '../buttons/back_button/BackButton';
