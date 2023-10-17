@@ -17,12 +17,18 @@ const AddForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const name = nameRef.current?.value;
-        const url = urlRef.current?.files ? urlRef.current.files[0] : null;
+        const urlInput = urlRef.current;
+        const url = urlInput?.files ? urlInput.files[0] : null;
         const score = scoreRef.current?.value;
         const description = descriptionRef.current?.value;
 
         if (!name || !url || !score || !description) {
             setError('All fields are required.');
+            return;
+        }
+
+        if (!url) {
+            setError('Please select an image.');
             return;
         }
 
@@ -34,24 +40,16 @@ const AddForm = () => {
         formData.append('score', score);
         formData.append('description', description);
 
-
-
-        const userId = 1
-
-
+        const userId = 1;
 
         try {
-
             await createMovie(formData, userId);
-
-            console.log('Movie created succefully');
+            console.log('Movie created successfully');
             router.refresh();
         } catch (error) {
-            console.error('Movie was not create:', error);
+            console.error('Movie was not created:', error);
         }
     };
-
-
 
     return (
         <div className={styles.addForm}>
@@ -105,7 +103,7 @@ const AddForm = () => {
                         required
                     />
                 </div>
-                <div >
+                <div>
                     <button className={styles.buttonAdd} type="submit">Add</button>
                 </div>
             </form>
