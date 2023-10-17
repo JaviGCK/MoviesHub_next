@@ -1,0 +1,56 @@
+.main {
+  display: grid;
+  grid-template-columns: 60vw 40vw;
+  grid-template-rows: auto auto auto;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../public/assets/image/wallpaperbetter\ \(1\).jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.h1 {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  font-family: Wendy One;
+  font-size: 5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  align-self: center;
+}
+
+.span {
+  color: #faff04;
+  text-align: center;
+  font-family: Wendy One;
+  font-size: 6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-shadow:
+    -3px -3px 0 #000,
+    3px -3px 0 #000,
+    -3px 3px 0 #000,
+    3px 3px 0 #000;
+}
+
+.text {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  text-align: center;
+  font-family: Wendy One;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  max-width: 40vw;
+  margin: 0 10vh;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.p1 {
+  margin-bottom: 5vh;
+}

@@ -1,0 +1,9 @@
+.button {
+    all: unset;
+    margin: 1ex;
+}
+
+.icon {
+    font-size: 0.5rem;
+    color: #faff04;
+}
