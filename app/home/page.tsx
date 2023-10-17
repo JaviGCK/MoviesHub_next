@@ -6,10 +6,6 @@ import CardMovie from '@/components/card/CardMovie';
 import UserDataLoader from '@/components/user_data/UserDataLoader';
 
 
-interface HomeProps {
-    movies: any;
-}
-
 const Home = () => {
 
     return (
