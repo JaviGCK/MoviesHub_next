@@ -1,16 +1,16 @@
-import styles from './home.module.css';
+// Home.tsx
 import React from 'react';
-import Nav from '../../components/nav/nav'
-import { getUserById } from '@/services/users.services';
+import styles from './home.module.css';
+import Nav from '../../components/nav/nav';
 import CardMovie from '@/components/card/CardMovie';
-import { getSession } from '@auth0/nextjs-auth0';
+import UserDataLoader from '@/components/user_data/UserDataLoader';
 
-const Home = async () => {
-    const user = await getUserById(1)
-    const movies = user ? user.movies || [] : []
 
-    const session = await getSession();
-    console.log(session);
+interface HomeProps {
+    movies: any;
+}
+
+const Home = () => {
 
     return (
         <main className={styles.main}>
@@ -18,13 +18,9 @@ const Home = async () => {
                 <p className={styles.logo}>H</p>
                 <Nav />
             </section>
-            <section className={styles.section_movies}>
-                <CardMovie movie={movies} />
-
-            </section>
+            <UserDataLoader />
         </main>
     );
 };
 
 export default Home;
-

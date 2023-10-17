@@ -19,8 +19,9 @@ const AddForm = () => {
         const name = nameRef.current?.value;
         const url = urlRef.current?.files ? urlRef.current.files[0] : null;
         const score = scoreRef.current?.value;
+        const description = descriptionRef.current?.value;
 
-        if (!name || !url || !score) {
+        if (!name || !url || !score || !description) {
             setError('All fields are required.');
             return;
         }
@@ -31,6 +32,7 @@ const AddForm = () => {
         formData.append('name', name);
         formData.append('url', url as File);
         formData.append('score', score);
+        formData.append('description', description);
 
 
 
