@@ -1,0 +1,19 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 5rem;
+    border-radius: 3.125rem;
+    background: #faff04;
+}
+
+.login {
+    text-decoration: none;
+}
+
+.icon {
+    width: 5rem;
+    height: auto;
+    color: black;
+}

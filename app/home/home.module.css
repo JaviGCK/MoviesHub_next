@@ -1,0 +1,48 @@
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 12vh 1fr;
+    text-align: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../public/assets/image/wallpaperbetter\ \(2\).jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.section_header {
+    grid-column: 1/3;
+    display: flex;
+}
+
+.logo {
+    color: #faff04;
+    text-align: center;
+    font-family: Wendy One;
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 1vw;
+    text-shadow:
+        -3px -3px 0 #000,
+        3px -3px 0 #000,
+        -3px 3px 0 #000,
+        3px 3px 0 #000;
+}
+
+.section_movies {
+    grid-column: 1/3;
+    grid-row: 2/3;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: center;
+    align-items: center;
+    font-family: Wendy One;
+    width: 100%;
+    height: 100%;
+    padding-top: 5vh;
+    overflow-y: auto;
+}
