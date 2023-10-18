@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import CardMovie from '../card/CardMovie';
 import { Movie } from '@/types/movie';
 
+
 type UserData = {
     movies: Movie[];
 };
@@ -45,10 +46,11 @@ export default function UserDataLoader() {
     const handleActionSuccess = () => {
         fetchUserData();
     };
+    console.log(userData);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
-
+    console.log(userData?.movies);
     return (
         <section className={styles.section_movies}>
             {userData && userData.movies && userData.movies.length > 0 ? (

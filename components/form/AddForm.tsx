@@ -1,10 +1,13 @@
-'use client'
+'use client';
 import styles from './form.module.css';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { handleFileChange } from '@/public/assets/utils/utils';
 import { createMovie } from '@/actions/movie.action';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { getAllUsers, getUserById } from '@/services/users.services';
+import { createUserIfNotExists } from '@/actions/user.action';
 
 const AddForm = () => {
     const nameRef = useRef<HTMLInputElement | null>(null);
@@ -12,7 +15,36 @@ const AddForm = () => {
     const scoreRef = useRef<HTMLInputElement | null>(null);
     const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
     const [error, setError] = useState('');
+    const [userData, setUserData] = useState<{ id: number } | null>(null);
     const router = useRouter();
+    const { user, error: authError } = useUser();
+
+    const getUserData = async () => {
+        if (user && user.email) {
+            try {
+                const email = user.email;
+                const name = user.given_name;
+                const allUsers = await getAllUsers();
+                const matchedUser = allUsers.find((u: any) => u.email === email);
+
+                if (!matchedUser) {
+                    const newUser = await createUserIfNotExists(name, email);
+                    setUserData({ id: newUser.id });
+                } else {
+                    const existingUserData = await getUserById(matchedUser.id);
+                    setUserData({ id: existingUserData.id });
+                }
+            } catch (error) {
+                console.error('Error fetching or creating user data:', error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (!userData) {
+            getUserData();
+        }
+    }, [user]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -21,6 +53,14 @@ const AddForm = () => {
         const url = urlInput?.files ? urlInput.files[0] : null;
         const score = scoreRef.current?.value;
         const description = descriptionRef.current?.value;
+
+        console.log('Values:', {
+            name,
+            url,
+            score,
+            description,
+        });
+
 
         if (!name || !url || !score || !description) {
             setError('All fields are required.');
@@ -40,14 +80,16 @@ const AddForm = () => {
         formData.append('score', score);
         formData.append('description', description);
 
-        const userId = 1;
-
-        try {
-            await createMovie(formData, userId);
-            console.log('Movie created successfully');
-            router.refresh();
-        } catch (error) {
-            console.error('Movie was not created:', error);
+        if (userData) {
+            try {
+                await createMovie(formData, userData.id);
+                console.log('Movie created successfully');
+                router.refresh();
+            } catch (error) {
+                console.error('Movie was not created:', error);
+            }
+        } else {
+            console.error('User data not available. Cannot create a movie.');
         }
     };
 

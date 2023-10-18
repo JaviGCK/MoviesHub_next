@@ -12,7 +12,7 @@ type Props = {
     onActionSuccess: () => void;
 };
 
-const CardMovie = ({ movie, isDisabled, onActionSuccess }: Props) => {
+const CardMovie = ({ movie, isDisabled }: Props) => {
     console.log(movie);
     return (
         <>
@@ -27,6 +27,7 @@ const CardMovie = ({ movie, isDisabled, onActionSuccess }: Props) => {
                             <p className={styles.description}>
                                 {singleMovie.description}
                             </p>
+
                             <div className={styles.genre_score}>
                                 <div className={styles.genres}>
                                     {singleMovie.genres?.slice(0, 2).map((genre: Genre, index: number, array: Genre[]) => (
