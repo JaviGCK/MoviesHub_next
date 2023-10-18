@@ -33,10 +33,12 @@
     height: 90%;
 }
 
-.description {
+.description_container {
     grid-column: 2/3;
     grid-row: 2/3;
     margin: 1rem;
+    height: 20vh;
+    overflow: auto;
 }
 
 .genre_score {
