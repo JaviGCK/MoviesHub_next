@@ -7,16 +7,16 @@ import { BsTrash3Fill } from 'react-icons/bs';
 
 type Props = {
     genreId: number;
+    onActionSuccess: () => void; // Agrega la función de éxito
 };
 
-const DeleteGenre = ({ genreId }: Props) => {
+const DeleteGenre = ({ genreId, onActionSuccess }: Props) => {
     const router = useRouter();
-
-
 
     const handleDeleteClick = async () => {
         try {
             await deleteGenre(genreId);
+            onActionSuccess();
             router.refresh();
         } catch (error) {
             console.error('Error deleting genre:', error);
@@ -24,11 +24,10 @@ const DeleteGenre = ({ genreId }: Props) => {
     };
 
     return (
-        <span className={styles.genre} >
+        <span className={styles.genre}>
             <button className={styles.button} onClick={handleDeleteClick}>
                 <BsTrash3Fill className={styles.icon} />
             </button>
-
         </span>
     );
 };

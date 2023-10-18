@@ -12,8 +12,11 @@ type Props = {
     onActionSuccess: () => void;
 };
 
-const CardMovie = ({ movie, isDisabled }: Props) => {
-    console.log(movie);
+const CardMovie = ({ movie, isDisabled, onActionSuccess }: Props) => {
+    const handleDeleteSuccess = () => {
+        onActionSuccess();
+    };
+
     return (
         <>
             {Array.isArray(movie) ? (
@@ -34,7 +37,7 @@ const CardMovie = ({ movie, isDisabled }: Props) => {
                                         <span key={genre.name} className={styles.genre}>
                                             {genre.name}
                                             {index < array.length - 1 ? ', ' : ''}
-                                            <DeleteGenre genreId={genre.id} />
+                                            <DeleteGenre genreId={genre.id} onActionSuccess={handleDeleteSuccess} />
                                         </span>
                                     ))}
                                 </div>
@@ -44,9 +47,9 @@ const CardMovie = ({ movie, isDisabled }: Props) => {
                             </div>
                         </div>
                         <div className={styles.actions}>
-                            <AddGenreMovieBtn movieId={singleMovie.id} isDisabled={isDisabled || (singleMovie.genres?.length || 0) >= 3} />
-                            <UpdateMovieBtn movieId={singleMovie.id} />
-                            <DeleteMovie movieId={singleMovie.id} />
+                            <AddGenreMovieBtn movieId={singleMovie.id} isDisabled={isDisabled || (singleMovie.genres?.length || 0) >= 3} onActionSuccess={handleDeleteSuccess} />
+                            <UpdateMovieBtn movieId={singleMovie.id} onActionSuccess={onActionSuccess} />
+                            <DeleteMovie movieId={singleMovie.id} onActionSuccess={handleDeleteSuccess} />
                         </div>
                     </div>
                 ))

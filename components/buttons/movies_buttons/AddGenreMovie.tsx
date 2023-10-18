@@ -8,9 +8,10 @@ import GenreForm from '@/components/form/GenreForm';
 type Props = {
     movieId: number;
     isDisabled: boolean;
+    onActionSuccess: () => void;
 };
 
-const AddGenreMovieBtn = ({ movieId, isDisabled }: Props) => {
+const AddGenreMovieBtn = ({ movieId, isDisabled, onActionSuccess }: Props) => {
     const router = useRouter();
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -20,6 +21,7 @@ const AddGenreMovieBtn = ({ movieId, isDisabled }: Props) => {
 
     const handleCloseForm = () => {
         setIsFormVisible(false);
+        onActionSuccess();
     };
 
     return (

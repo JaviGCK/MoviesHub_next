@@ -6,8 +6,10 @@ import UpdateForm from '@/components/form/UpdateForm';
 
 type Props = {
     movieId: number;
+    onActionSuccess: () => void;
 };
-const UpdateMovieBtn = ({ movieId }: Props) => {
+
+const UpdateMovieBtn = ({ movieId, onActionSuccess }: Props) => {
     const [isFormVisible, setIsFormVisible] = useState(false);
 
     const handleButtonClick = () => {
@@ -16,6 +18,7 @@ const UpdateMovieBtn = ({ movieId }: Props) => {
 
     const handleCloseForm = () => {
         setIsFormVisible(false);
+        onActionSuccess();
     };
 
     return (
@@ -29,4 +32,3 @@ const UpdateMovieBtn = ({ movieId }: Props) => {
 };
 
 export default UpdateMovieBtn;
-

@@ -1,12 +1,11 @@
-'use client';
-import styles from './userDataLoader.module.css'
-import { createUserIfNotExists } from '@/actions/user.action';
-import { getAllUsers, getUserById } from '@/services/users.services';
-import { useUser } from '@auth0/nextjs-auth0/client';
-import { useEffect, useState } from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import CardMovie from '../card/CardMovie';
 import { Movie } from '@/types/movie';
-
+import { getAllUsers, getUserById } from '@/services/users.services';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import styles from './userDataLoader.module.css';
+import { createUserIfNotExists } from '@/actions/user.action';
 
 type UserData = {
     movies: Movie[];
@@ -37,26 +36,26 @@ export default function UserDataLoader() {
                 console.error('Error fetching or creating user data:', error);
             }
         }
-    }
+    };
 
     useEffect(() => {
         fetchUserData();
     }, [user]);
 
     const handleActionSuccess = () => {
+
         fetchUserData();
     };
-    console.log(userData);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
-    console.log(userData?.movies);
+
     return (
         <section className={styles.section_movies}>
             {userData && userData.movies && userData.movies.length > 0 ? (
                 <CardMovie movie={userData.movies} onActionSuccess={handleActionSuccess} />
             ) : (
-                <p>Not movies found for this user.</p>
+                <p>No movies found for this user.</p>
             )}
         </section>
     );
