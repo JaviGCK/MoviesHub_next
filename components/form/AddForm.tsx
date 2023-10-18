@@ -9,15 +9,31 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { getAllUsers, getUserById } from '@/services/users.services';
 import { createUserIfNotExists } from '@/actions/user.action';
 
+// Importa las bibliotecas necesarias y estilos aquí
+
 const AddForm = () => {
     const nameRef = useRef<HTMLInputElement | null>(null);
     const urlRef = useRef<HTMLInputElement | null>(null);
     const scoreRef = useRef<HTMLInputElement | null>(null);
     const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const [userData, setUserData] = useState<{ id: number } | null>(null);
     const router = useRouter();
     const { user, error: authError } = useUser();
+
+    const resetFileInput = (ref: React.RefObject<HTMLInputElement | null>) => {
+        if (ref.current) {
+            ref.current.value = ''; // Limpiar el campo de archivo
+        }
+    };
+
+    const resetForm = () => {
+        if (nameRef.current) nameRef.current.value = '';
+        resetFileInput(urlRef); // Restablecer el campo de tipo archivo
+        if (scoreRef.current) scoreRef.current.value = '';
+        if (descriptionRef.current) descriptionRef.current.value = '';
+    };
 
     const getUserData = async () => {
         if (user && user.email) {
@@ -54,14 +70,6 @@ const AddForm = () => {
         const score = scoreRef.current?.value;
         const description = descriptionRef.current?.value;
 
-        console.log('Values:', {
-            name,
-            url,
-            score,
-            description,
-        });
-
-
         if (!name || !url || !score || !description) {
             setError('All fields are required.');
             return;
@@ -83,7 +91,8 @@ const AddForm = () => {
         if (userData) {
             try {
                 await createMovie(formData, userData.id);
-                console.log('Movie created successfully');
+                setSuccessMessage('Your movie was created successfully');
+                resetForm();
                 router.refresh();
             } catch (error) {
                 console.error('Movie was not created:', error);
@@ -93,10 +102,20 @@ const AddForm = () => {
         }
     };
 
+    useEffect(() => {
+        if (successMessage) {
+            const timeout = setTimeout(() => {
+                setSuccessMessage('');
+            }, 3000);
+            return () => clearTimeout(timeout);
+        }
+    }, [successMessage]);
+
     return (
         <div className={styles.addForm}>
             <form className={styles.form} onSubmit={handleSubmit}>
-                {error && <p className="error-message">{error}</p>}
+                {successMessage && <p className={styles.success}>{successMessage}</p>}
+                {error && <p className={styles.error}>{error}</p>}
                 <div className={styles.field}>
                     <label className={styles.label} htmlFor="name">Name</label>
                     <input className={styles.input} type="text" id="name" name="name" ref={nameRef} required />

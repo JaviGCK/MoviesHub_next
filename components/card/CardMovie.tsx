@@ -27,9 +27,11 @@ const CardMovie = ({ movie, isDisabled, onActionSuccess }: Props) => {
                         </div>
                         <div className={styles.right_content}>
                             <h2 className={styles.movie_name}>{singleMovie.name}</h2>
-                            <p className={styles.description}>
-                                {singleMovie.description}
-                            </p>
+                            <div className={styles.description_container}>
+                                <p className={styles.description}>
+                                    {singleMovie.description}
+                                </p>
+                            </div>
 
                             <div className={styles.genre_score}>
                                 <div className={styles.genres}>
