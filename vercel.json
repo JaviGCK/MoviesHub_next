@@ -1,28 +1,8 @@
 {
     "rewrites": [
         {
-            "source": "/api/auth/login",
-            "destination": "https://movies-hub-next-ipch5q6bv-javigcks-projects.vercel.app/api/auth/login"
-        },
-        {
-            "source": "/home",
-            "destination": "https://movies-hub-next-ipch5q6bv-javigcks-projects.vercel.app/home"
-        },
-        {
-            "source": "/home/profile",
-            "destination": "https://movies-hub-next-ipch5q6bv-javigcks-projects.vercel.app/home/profile"
-        },
-        {
-            "source": "/home/movie",
-            "destination": "https://movies-hub-next-ipch5q6bv-javigcks-projects.vercel.app/home/movie"
-        },
-        {
-            "source": "/home/genre",
-            "destination": "https://movies-hub-next-ipch5q6bv-javigcks-projects.vercel.app/home/genre"
-        },
-        {
             "source": "/(.*)",
-            "destination": "https://movies-hub-next-ipch5q6bv-javigcks-projects.vercel.app"
+            "destination": "/"
         }
     ]
 }
